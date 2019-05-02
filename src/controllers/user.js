@@ -34,17 +34,20 @@ function get(req, res) {
  * @property {string} req.body.mobileNumber - The mobileNumber of user.
  * @returns {User}
  */
-function create(req, res, next) {
-    console.log(req.body);
-    const user = User.build({
-        username: req.body.username,
-        email: req.body.email,
-        password: req.body.password,
-    });
+async function create(req, res, next) {
+    try {
+        const user = User.build({
+            username: req.body.username,
+            email: req.body.email,
+            password: req.body.password,
+        });
 
-    user.save()
-        .then(savedUser => res.json(savedUser))
-        .catch(e => next(e));
+        const newUser = await user.save();
+        res.json(newUser);
+    } catch (err) {
+        console.log(err);
+    }
+
 }
 
 /**

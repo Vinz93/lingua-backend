@@ -5,6 +5,8 @@ import compress from 'compression';
 import helmet from 'helmet';
 import bodyParser from 'body-parser';
 import methodOverride from 'method-override';
+import passport from 'passport';
+
 
 import routes from '../routes/index';
 
@@ -20,6 +22,8 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use(bodyParser.json());
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(cors());
 
 
